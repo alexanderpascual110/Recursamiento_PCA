@@ -1,0 +1,42 @@
+<form action="/agregar_materia" method="POST">
+
+<input name="nombre"
+placeholder="Materia">
+
+<input name="semestre"
+placeholder="Semestre">
+
+<input name="creditos"
+placeholder="Créditos">
+
+<button>Guardar</button>
+
+</form>
+
+<table border="1">
+
+{% for m in datos %}
+
+<tr>
+
+<td>{{m.nombre}}</td>
+<td>{{m.semestre}}</td>
+<td>{{m.creditos}}</td>
+
+<td>
+
+<a href="/editar_materia/{{m._id}}">
+Editar
+</a>
+
+<a href="/eliminar_materia/{{m._id}}">
+Eliminar
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>

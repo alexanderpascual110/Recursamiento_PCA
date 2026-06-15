@@ -1,0 +1,39 @@
+<form action="/agregar_alumno" method="POST">
+
+<input name="nombre"
+placeholder="Nombre">
+
+<input name="grupo"
+placeholder="Grupo">
+
+<input name="edad"
+placeholder="Edad">
+
+<button>Guardar</button>
+
+</form>
+
+<table border="1">
+
+{% for a in datos %}
+
+<tr>
+<td>{{a.nombre}}</td>
+<td>{{a.grupo}}</td>
+<td>{{a.edad}}</td>
+
+<td>
+<a href="/editar_alumno/{{a._id}}">
+Editar
+</a>
+
+<a href="/eliminar_alumno/{{a._id}}">
+Eliminar
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>

@@ -1,0 +1,48 @@
+<form action="/agregar_maestro" method="POST">
+
+<input name="nombre"
+placeholder="Nombre">
+
+<input name="especialidad"
+placeholder="Especialidad">
+
+<input name="telefono"
+placeholder="Teléfono">
+
+<button>Guardar</button>
+
+</form>
+
+<table border="1">
+
+<tr>
+<th>Nombre</th>
+<th>Especialidad</th>
+<th>Teléfono</th>
+<th>Acciones</th>
+</tr>
+
+{% for m in datos %}
+
+<tr>
+<td>{{m.nombre}}</td>
+<td>{{m.especialidad}}</td>
+<td>{{m.telefono}}</td>
+
+<td>
+
+<a href="/editar_maestro/{{m._id}}">
+Editar
+</a>
+
+<a href="/eliminar_maestro/{{m._id}}">
+Eliminar
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>

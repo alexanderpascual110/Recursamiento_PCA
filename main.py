@@ -1,6 +1,160 @@
-def main():
-    print("Hello from recursamiento-pca!")
+from flask import Flask, render_template, request, redirect
+from pymongo import MongoClient
+from bson.objectid import ObjectId
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-if __name__ == "__main__":
-    main()
+app = Flask(__name__)
+
+cliente = MongoClient(os.getenv("MONGO_URI"))
+db = cliente["escuela"]
+
+maestros = db["maestros"]
+alumnos = db["alumnos"]
+materias = db["materias"]
+
+@app.route("/")
+def inicio():
+    return render_template("index.html")
+
+#================ MAESTROS =================
+
+@app.route("/maestros")
+def ver_maestros():
+    datos = maestros.find()
+    return render_template("maestros.html", datos=datos)
+
+@app.route("/agregar_maestro", methods=["POST"])
+def agregar_maestro():
+
+    maestros.insert_one({
+        "nombre": request.form["nombre"],
+        "especialidad": request.form["especialidad"],
+        "telefono": request.form["telefono"]
+    })
+
+    return redirect("/maestros")
+
+@app.route("/eliminar_maestro/<id>")
+def eliminar_maestro(id):
+    maestros.delete_one({"_id": ObjectId(id)})
+    return redirect("/maestros")
+
+@app.route("/editar_maestro/<id>")
+def editar_maestro(id):
+
+    dato = maestros.find_one({"_id": ObjectId(id)})
+    return render_template(
+        "editar_maestro.html",
+        dato=dato
+    )
+
+@app.route("/actualizar_maestro/<id>", methods=["POST"])
+def actualizar_maestro(id):
+
+    maestros.update_one(
+        {"_id": ObjectId(id)},
+        {"$set":{
+            "nombre": request.form["nombre"],
+            "especialidad": request.form["especialidad"],
+            "telefono": request.form["telefono"]
+        }}
+    )
+
+    return redirect("/maestros")
+
+#================ ALUMNOS =================
+
+@app.route("/alumnos")
+def ver_alumnos():
+    datos = alumnos.find()
+    return render_template("alumnos.html", datos=datos)
+
+@app.route("/agregar_alumno", methods=["POST"])
+def agregar_alumno():
+
+    alumnos.insert_one({
+        "nombre": request.form["nombre"],
+        "grupo": request.form["grupo"],
+        "edad": request.form["edad"]
+    })
+
+    return redirect("/alumnos")
+
+@app.route("/eliminar_alumno/<id>")
+def eliminar_alumno(id):
+    alumnos.delete_one({"_id": ObjectId(id)})
+    return redirect("/alumnos")
+
+@app.route("/editar_alumno/<id>")
+def editar_alumno(id):
+
+    dato = alumnos.find_one({"_id": ObjectId(id)})
+    return render_template(
+        "editar_alumno.html",
+        dato=dato
+    )
+
+@app.route("/actualizar_alumno/<id>", methods=["POST"])
+def actualizar_alumno(id):
+
+    alumnos.update_one(
+        {"_id": ObjectId(id)},
+        {"$set":{
+            "nombre": request.form["nombre"],
+            "grupo": request.form["grupo"],
+            "edad": request.form["edad"]
+        }}
+    )
+
+    return redirect("/alumnos")
+
+#================ MATERIAS =================
+
+@app.route("/materias")
+def ver_materias():
+    datos = materias.find()
+    return render_template("materias.html", datos=datos)
+
+@app.route("/agregar_materia", methods=["POST"])
+def agregar_materia():
+
+    materias.insert_one({
+        "nombre": request.form["nombre"],
+        "semestre": request.form["semestre"],
+        "creditos": request.form["creditos"]
+    })
+
+    return redirect("/materias")
+
+@app.route("/eliminar_materia/<id>")
+def eliminar_materia(id):
+    materias.delete_one({"_id": ObjectId(id)})
+    return redirect("/materias")
+
+@app.route("/editar_materia/<id>")
+def editar_materia(id):
+
+    dato = materias.find_one({"_id": ObjectId(id)})
+    return render_template(
+        "editar_materia.html",
+        dato=dato
+    )
+
+@app.route("/actualizar_materia/<id>", methods=["POST"])
+def actualizar_materia(id):
+
+    materias.update_one(
+        {"_id": ObjectId(id)},
+        {"$set":{
+            "nombre": request.form["nombre"],
+            "semestre": request.form["semestre"],
+            "creditos": request.form["creditos"]
+        }}
+    )
+
+    return redirect("/materias")
+
+app.run(debug=True)
