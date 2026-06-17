@@ -53,8 +53,17 @@ width:220px;
 border-radius:10px;
 border:1px solid lightgray;">
 
-<input type="text" name="semestre"
-placeholder="Semestre"
+<input type="text" name="codigo_de_la_materia"
+placeholder="Codigo de la materia"
+required
+style="
+padding:12px;
+width:220px;
+border-radius:10px;
+border:1px solid lightgray;">
+
+<input type="text" name="horas_semanales"
+placeholder="Horas semanales"
 required
 style="
 padding:12px;
@@ -92,7 +101,8 @@ border-collapse:collapse;">
 background:#8ec5ff;">
 
 <th style="padding:12px;">Nombre</th>
-<th>Semestre</th>
+<th>Codigo de la materia</th>
+<th>Horas semanales</th>
 <th>Creditos</th>
 
 </tr>
@@ -102,7 +112,8 @@ background:#8ec5ff;">
 <tr style="text-align:center;">
 
 <td style="padding:10px;">{{a.nombre}}</td>
-<td>{{a.semestre}}</td>
+<td>{{a.codigo_de_la_materia}}</td>
+<td>{{a.horas_semanales}}</td>
 <td>{{a.creditos}}</td>
 
 <td>

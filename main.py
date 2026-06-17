@@ -34,7 +34,7 @@ def agregar_maestro():
         "nombre": request.form["nombre"],
         "especialidad": request.form["especialidad"],
         "telefono": request.form["telefono"],
-        "correo": request.form["correo"],
+        "turno": request.form["turno"],
         "numero_de_empleado": request.form["numero_de_empleado"]
     })
 
@@ -63,7 +63,7 @@ def actualizar_maestro(id):
             "nombre": request.form["nombre"],
             "especialidad": request.form["especialidad"],
             "telefono": request.form["telefono"],
-            "correo": request.form["correo"],
+            "turno": request.form["turno"],
             "numero_de_empleado": request.form["numero_de_empleado"]
         }}
     )
@@ -130,7 +130,8 @@ def agregar_materia():
 
     materias.insert_one({
         "nombre": request.form["nombre"],
-        "semestre": request.form["semestre"],
+        "codigo_de_la_materia": request.form["codigo_de_la_materia"],
+        "horas_semanales": request.form["horas_semanales"],
         "creditos": request.form["creditos"]
     })
 
@@ -157,7 +158,8 @@ def actualizar_materia(id):
         {"_id": ObjectId(id)},
         {"$set":{
             "nombre": request.form["nombre"],
-            "semestre": request.form["semestre"],
+            "codigo_de_la_materia": request.form["codigo_de_la_materia"],
+            "horas_semanales": request.form["horas_semanales"],
             "creditos": request.form["creditos"]
         }}
     )
