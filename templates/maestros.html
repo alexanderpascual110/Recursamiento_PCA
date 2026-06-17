@@ -62,8 +62,11 @@ width:220px;
 border-radius:10px;
 border:1px solid lightgray;">
 
-<input type="number" name="telefono"
+<input type="tel" name="telefono"
 placeholder="Telefono"
+pattern="[0-9]{10}"
+maxlength="10"
+title="Debe contener exactamente 10 digitos"
 required
 style="
 padding:12px;
