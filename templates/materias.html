@@ -1,36 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Materias</title>
+</head>
+
+<body style="
+background:#dfefff;
+font-family:Arial;
+margin:0;">
+
+<div style="
+background:#4f6bdc;
+padding:20px;
+text-align:center;
+color:white;
+font-size:35px;
+font-weight:bold;">
+🎓 Gestión de Materias
+</div>
+
+<div style="
+width:90%;
+margin:auto;
+margin-top:20px;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0px 0px 15px lightgray;">
+
+<a href="/">
+<button style="
+background:#5c6bc0;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+cursor:pointer;">
+🏠 Inicio
+</button>
+</a>
+
+<br><br>
+
 <form action="/agregar_materia" method="POST">
 
-<input name="nombre"
-placeholder="Materia">
+<input type="text" name="nombre"
+placeholder="Nombre"
+required
+style="
+padding:12px;
+width:220px;
+border-radius:10px;
+border:1px solid lightgray;">
 
-<input name="semestre"
-placeholder="Semestre">
+<input type="text" name="semestre"
+placeholder="Semestre"
+required
+style="
+padding:12px;
+width:220px;
+border-radius:10px;
+border:1px solid lightgray;">
 
-<input name="creditos"
-placeholder="Créditos">
+<input type="number" name="creditos"
+placeholder="Creditos"
+required
+style="
+padding:12px;
+width:220px;
+border-radius:10px;
+border:1px solid lightgray;">
 
-<button>Guardar</button>
+<button style="
+background:#8ec5ff;
+border:none;
+padding:12px 25px;
+border-radius:10px;
+cursor:pointer;">
+Guardar
+</button>
 
 </form>
 
-<table border="1">
+<br>
 
-{% for m in datos %}
+<table style="
+width:100%;
+border-collapse:collapse;">
 
-<tr>
+<tr style="
+background:#8ec5ff;">
 
-<td>{{m.nombre}}</td>
-<td>{{m.semestre}}</td>
-<td>{{m.creditos}}</td>
+<th style="padding:12px;">Nombre</th>
+<th>Semestre</th>
+<th>Creditos</th>
+
+</tr>
+
+{% for a in datos %}
+
+<tr style="text-align:center;">
+
+<td style="padding:10px;">{{a.nombre}}</td>
+<td>{{a.semestre}}</td>
+<td>{{a.creditos}}</td>
 
 <td>
 
-<a href="/editar_materia/{{m._id}}">
+<a href="/editar_materia/{{a._id}}">
+<button style="
+background:#4caf50;
+color:white;
+border:none;
+padding:8px;
+border-radius:8px;">
 Editar
+</button>
 </a>
 
-<a href="/eliminar_materia/{{m._id}}">
+<a href="/eliminar_materia/{{a._id}}">
+<button style="
+background:#f44336;
+color:white;
+border:none;
+padding:8px;
+border-radius:8px;">
 Eliminar
+</button>
 </a>
 
 </td>
@@ -40,3 +136,8 @@ Eliminar
 {% endfor %}
 
 </table>
+
+</div>
+
+</body>
+</html>

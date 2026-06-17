@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Editar Materia</title>
+</head>
+
+<body style="
+background:#dfefff;
+font-family:Arial;">
+
+<div style="
+width:500px;
+margin:auto;
+margin-top:50px;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 0 15px lightgray;">
+
+<h1 style="color:#4f6bdc;text-align:center;">
+Editar Materia
+</h1>
+
+<form action="/actualizar_materia/{{dato._id}}" method="POST">
+
+<input type="text"
+name="nombre"
+value="{{dato.nombre}}"
+style="
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:10px;">
+
+<input type="text"
+name="semestre"
+value="{{dato.semestre}}"
+style="
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:10px;">
+
+<input type="number"
+name="creditos"
+value="{{dato.creditos}}"
+style="
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:10px;">
+
+<button style="
+width:100%;
+padding:12px;
+background:#8ec5ff;
+border:none;
+border-radius:10px;">
+Actualizar
+</button>
+
+</form>
+
+<br>
+
+<a href="/materias">
+<button style="
+width:100%;
+padding:12px;
+background:#5c6bc0;
+color:white;
+border:none;
+border-radius:10px;">
+Regresar
+</button>
+</a>
+
+</div>
+
+</body>
+</html>

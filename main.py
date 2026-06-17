@@ -8,7 +8,8 @@ load_dotenv()
 
 app = Flask(__name__)
 
-cliente = MongoClient(os.getenv("MONGO_URI"))
+cadena = "mongodb+srv://alexanderpasc24_db_user:alex060609@alex01.p8q4arl.mongodb.net/?appName=Alex01"
+cliente = MongoClient(cadena)
 db = cliente["escuela"]
 
 maestros = db["maestros"]
@@ -19,7 +20,7 @@ materias = db["materias"]
 def inicio():
     return render_template("index.html")
 
-#================ MAESTROS =================
+
 
 @app.route("/maestros")
 def ver_maestros():
@@ -32,7 +33,9 @@ def agregar_maestro():
     maestros.insert_one({
         "nombre": request.form["nombre"],
         "especialidad": request.form["especialidad"],
-        "telefono": request.form["telefono"]
+        "telefono": request.form["telefono"],
+        "correo": request.form["correo"],
+        "numero_de_empleado": request.form["numero_de_empleado"]
     })
 
     return redirect("/maestros")
@@ -59,13 +62,15 @@ def actualizar_maestro(id):
         {"$set":{
             "nombre": request.form["nombre"],
             "especialidad": request.form["especialidad"],
-            "telefono": request.form["telefono"]
+            "telefono": request.form["telefono"],
+            "correo": request.form["correo"],
+            "numero_de_empleado": request.form["numero_de_empleado"]
         }}
     )
 
     return redirect("/maestros")
 
-#================ ALUMNOS =================
+
 
 @app.route("/alumnos")
 def ver_alumnos():
@@ -78,7 +83,8 @@ def agregar_alumno():
     alumnos.insert_one({
         "nombre": request.form["nombre"],
         "grupo": request.form["grupo"],
-        "edad": request.form["edad"]
+        "correo": request.form["correo"],
+        "fecha_de_nacimiento": request.form["fecha_de_nacimiento"]
     })
 
     return redirect("/alumnos")
@@ -105,13 +111,14 @@ def actualizar_alumno(id):
         {"$set":{
             "nombre": request.form["nombre"],
             "grupo": request.form["grupo"],
-            "edad": request.form["edad"]
+            "correo": request.form["correo"],
+            "fecha_de_nacimiento": request.form["fecha_de_nacimiento"]
         }}
     )
 
     return redirect("/alumnos")
 
-#================ MATERIAS =================
+
 
 @app.route("/materias")
 def ver_materias():
