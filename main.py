@@ -17,6 +17,7 @@ maestros = db["maestros"]
 alumnos = db["alumnos"]
 materias = db["materias"]
 grupos = db["grupos"]
+grupo_alumnos = db["grupo_alumnos"]
 
 @app.route("/")
 def inicio():
@@ -90,6 +91,8 @@ def agregar_alumno():
         return "La fecha debe estar entre 2008 y 2011"
 
     alumnos.insert_one({
+        "control": request.form["control"],
+        "apellido": request.form["apellido"],
         "nombre": request.form["nombre"],
         "grupo": request.form["grupo"],
         "correo": request.form["correo"],
@@ -119,6 +122,8 @@ def actualizar_alumno(id):
     alumnos.update_one(
         {"_id": ObjectId(id)},
         {"$set":{
+            "control": request.form["control"],
+            "apellido": request.form["apellido"],
             "nombre": request.form["nombre"],
             "grupo": request.form["grupo"],
             "correo": request.form["correo"],
@@ -182,17 +187,19 @@ def ver_grupos():
     lista_materias = materias.find()
     lista_alumnos = alumnos.find()
     lista_grupos = grupos.find()
-
+    lista_grupo_alumnos = grupo_alumnos.find()
     return render_template(
         "mantenimiento_grupos.html",
         maestros=lista_maestros,
         materias=lista_materias,
         alumnos=lista_alumnos,
-        grupos=lista_grupos
+        grupos=lista_grupos,
+        grupo_alumnos=lista_grupo_alumnos
     )
 
 @app.route("/guardar_grupo", methods=["POST"])
 def guardar_grupo():
+
 
     grupos.insert_one({
 
@@ -201,6 +208,45 @@ def guardar_grupo():
         "maestro": request.form["maestro"],
         "materia": request.form["materia"]
 
+    })
+
+    return redirect("/grupos")
+
+@app.route("/eliminar_grupo/<id>")
+def eliminar_grupo(id):
+
+    grupos.delete_one({
+        "_id": ObjectId(id)
+    })
+
+    return redirect("/grupos")
+
+@app.route("/agregar_alumno_grupo", methods=["POST"])
+def agregar_alumno_grupo():
+
+    alumno_id = request.form["alumno_id"]
+
+    alumno = alumnos.find_one({
+        "_id": ObjectId(alumno_id)
+    })
+
+    grupo_alumnos.insert_one({
+
+        "grupo": request.form["grupo"],
+        "alumno_id": alumno_id,
+        "control": alumno["control"],
+        "apellido": alumno["apellido"],
+        "nombre": alumno["nombre"]
+
+    })
+
+    return redirect("/grupos")
+
+@app.route("/eliminar_alumno_grupo/<id>")
+def eliminar_alumno_grupo(id):
+
+    grupo_alumnos.delete_one({
+        "_id": ObjectId(id)
     })
 
     return redirect("/grupos")

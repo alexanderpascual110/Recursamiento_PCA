@@ -44,6 +44,26 @@ cursor:pointer;">
 
 <form action="/agregar_alumno" method="POST">
 
+<input type="text"
+name="control"
+placeholder="Número de Control"
+required
+style="
+padding:12px;
+width:220px;
+border-radius:10px;
+border:1px solid lightgray;">
+
+<input type="text"
+name="apellido"
+placeholder="Apellido"
+required
+style="
+padding:12px;
+width:220px;
+border-radius:10px;
+border:1px solid lightgray;">
+
 <input type="text" name="nombre"
 placeholder="Nombre"
 required
@@ -102,6 +122,8 @@ border-collapse:collapse;">
 <tr style="
 background:#8ec5ff;">
 
+<th>No. Control</th>
+<th>Apellido</th>
 <th style="padding:12px;">Nombre</th>
 <th>Grupo</th>
 <th>Correo</th>
@@ -113,6 +135,8 @@ background:#8ec5ff;">
 
 <tr style="text-align:center;">
 
+<td>{{a.control}}</td>
+<td>{{a.apellido}}</td>
 <td style="padding:10px;">{{a.nombre}}</td>
 <td>{{a.grupo}}</td>
 <td>{{a.correo}}</td>

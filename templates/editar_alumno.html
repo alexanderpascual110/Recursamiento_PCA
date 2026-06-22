@@ -23,6 +23,24 @@ Editar Alumno
 
 <form action="/actualizar_alumno/{{dato._id}}" method="POST">
 
+<input type="number"
+name="control"
+value="{{dato.control}}"
+style="
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:10px;">
+
+<input type="text"
+name="apellido"
+value="{{dato.apellido}}"
+style="
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:10px;">
+
 <input type="text"
 name="nombre"
 value="{{dato.nombre}}"
