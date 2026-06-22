@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 load_dotenv()
 
@@ -15,6 +16,7 @@ db = cliente["escuela"]
 maestros = db["maestros"]
 alumnos = db["alumnos"]
 materias = db["materias"]
+grupos = db["grupos"]
 
 @app.route("/")
 def inicio():
@@ -80,11 +82,19 @@ def ver_alumnos():
 @app.route("/agregar_alumno", methods=["POST"])
 def agregar_alumno():
 
+    fecha_nacimiento = request.form["fecha_de_nacimiento"]
+
+    fecha = datetime.strptime(fecha_nacimiento, "%Y-%m-%d")
+
+    if fecha < datetime(2008,1,1) or fecha > datetime(2011,12,31):
+        return "La fecha debe estar entre 2008 y 2011"
+
     alumnos.insert_one({
         "nombre": request.form["nombre"],
         "grupo": request.form["grupo"],
         "correo": request.form["correo"],
         "fecha_de_nacimiento": request.form["fecha_de_nacimiento"]
+        
     })
 
     return redirect("/alumnos")
@@ -117,7 +127,6 @@ def actualizar_alumno(id):
     )
 
     return redirect("/alumnos")
-
 
 
 @app.route("/materias")
@@ -165,5 +174,35 @@ def actualizar_materia(id):
     )
 
     return redirect("/materias")
+
+@app.route("/grupos")
+def ver_grupos():
+
+    lista_maestros = maestros.find()
+    lista_materias = materias.find()
+    lista_alumnos = alumnos.find()
+    lista_grupos = grupos.find()
+
+    return render_template(
+        "mantenimiento_grupos.html",
+        maestros=lista_maestros,
+        materias=lista_materias,
+        alumnos=lista_alumnos,
+        grupos=lista_grupos
+    )
+
+@app.route("/guardar_grupo", methods=["POST"])
+def guardar_grupo():
+
+    grupos.insert_one({
+
+        "grupo": request.form["grupo"],
+        "especialidad": request.form["especialidad"],
+        "maestro": request.form["maestro"],
+        "materia": request.form["materia"]
+
+    })
+
+    return redirect("/grupos")
 
 app.run(debug=True)

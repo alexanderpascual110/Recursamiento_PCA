@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Grupos</title>
+</head>
+
+<body style="
+background:#dfefff;
+font-family:Arial;">
+
+<div style="
+width:90%;
+margin:auto;
+margin-top:20px;
+background:white;
+padding:25px;
+border-radius:20px;">
+
+<h1 style="
+color:#4f6bdc;
+text-align:center;">
+📚 Mantenimiento de Grupos
+</h1>
+
+<a href="/">
+<button>
+🏠 Inicio
+</button>
+</a>
+
+<br><br>
+
+<form action="/guardar_grupo" method="POST">
+
+<input
+type="text"
+name="grupo"
+placeholder="Grupo"
+required>
+
+<input
+type="text"
+name="especialidad"
+placeholder="Especialidad"
+required>
+
+<br><br>
+
+<select name="maestro">
+
+{% for maestro in maestros %}
+
+<option value="{{maestro.nombre}}">
+{{maestro.nombre}}
+</option>
+
+{% endfor %}
+
+</select>
+
+<select name="materia">
+
+{% for materia in materias %}
+
+<option value="{{materia.nombre}}">
+{{materia.nombre}}
+</option>
+
+{% endfor %}
+
+</select>
+
+<button>
+Guardar Grupo
+</button>
+
+<br><br>
+
+<table border="1">
+
+<tr>
+
+<th>Grupo</th>
+<th>Especialidad</th>
+<th>Maestro</th>
+<th>Materia</th>
+
+</tr>
+
+{% for grupo in grupos %}
+
+<tr>
+
+<td>{{grupo.grupo}}</td>
+<td>{{grupo.especialidad}}</td>
+<td>{{grupo.maestro}}</td>
+<td>{{grupo.materia}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</form>
