@@ -33,6 +33,15 @@ def ver_maestros():
 @app.route("/agregar_maestro", methods=["POST"])
 def agregar_maestro():
 
+    numero_de_empleado = request.form["numero_de_empleado"]
+
+    maestro_existente = maestros.find_one({
+    "numero_de_empleado": numero_de_empleado
+    })
+
+    if maestro_existente:
+        return "<script>alert('Ya existe un maestro con ese número de empleado'); window.location='/maestros';</script>"
+
     maestros.insert_one({
         "nombre": request.form["nombre"],
         "especialidad": request.form["especialidad"],
@@ -82,6 +91,15 @@ def ver_alumnos():
 
 @app.route("/agregar_alumno", methods=["POST"])
 def agregar_alumno():
+
+    control = request.form["control"]
+
+    alumno_existente = alumnos.find_one({
+    "control": control
+    })
+
+    if alumno_existente:
+        return "<script>alert('Ya existe un alumno con ese número de control'); window.location='/alumnos';</script>"
 
     fecha_nacimiento = request.form["fecha_de_nacimiento"]
 
@@ -142,6 +160,15 @@ def ver_materias():
 @app.route("/agregar_materia", methods=["POST"])
 def agregar_materia():
 
+    codigo_de_la_materia = request.form["codigo_de_la_materia"]
+
+    materia_existente = materias.find_one({
+    "codigo_de_la_materia": codigo_de_la_materia
+    })
+
+    if materia_existente:
+        return "<script>alert('Ya existe una materia con ese código'); window.location='/materias';</script>"
+
     materias.insert_one({
         "nombre": request.form["nombre"],
         "codigo_de_la_materia": request.form["codigo_de_la_materia"],
@@ -200,6 +227,12 @@ def ver_grupos():
 @app.route("/guardar_grupo", methods=["POST"])
 def guardar_grupo():
 
+    grupo_existente = grupos.find_one({
+        "grupo": request.form["grupo"]
+    })
+
+    if grupo_existente:
+        return redirect("/grupos")
 
     grupos.insert_one({
 
